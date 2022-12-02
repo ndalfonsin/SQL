@@ -170,3 +170,40 @@ SELECT * FROM usuarios ORDER BY Edad desc;
 /*Seleccionar el de mayor edad*/
 SELECT max(edad) as mayor FROM usuarios;
 SELECT min(edad) as menor FROM usuarios;
+
+use holamundo; 
+
+CREATE TABLE IF NOT EXISTS products(
+	id int NOT NULL auto_increment,
+    Nombre varchar(255) not null,
+    created_by int not null,
+    marca varchar(255) not null,
+    primary key (id),
+    foreign key (created_by) references usuarios(id) 
+);
+
+rename table products to product;
+
+/*Insertar datos multiples*/
+
+INSERT INTO product(Nombre, created_by, marca)
+values
+	('Ipad', 1 , 'Apple'),
+    ('Iphone', 1 , 'Apple'),
+    ('watch', 2, 'Apple'),
+    ('Imac', 3 , 'Apple'),
+	('Ipad mini', 2 , 'Apple'),
+    ('Macbook', 1 , 'Apple');
+
+
+SELECT * FROM product;
+
+/*LEFT JOIN, de dos tablas podemos asociar los registros de una con los registros de otra tabla, A--->B  sii pertenecen a la tabla B*/
+SELECT u.id, u.Email, p.Nombre FROM usuarios u RIGHT JOIN product p on u.id = p.created_by;
+/*RIGHT JOIN, de dos tablas podemos asociar los registros de una con los registros de otra tabla, B--->A  sii pertenecen a la tabla A*/
+SELECT u.id, u.Email, p.Nombre FROM usuarios u LEFT JOIN product p on u.id = p.created_by;
+/*INNER JOIN te entrega solo los registros que estan asociados en las dos tablas*/
+SELECT u.id, u.Email, p.Nombre FROM usuarios u INNER JOIN product p on u.id = p.created_by;
+/*Devuelve el resultado cartesiano entre las dos tablas*/
+SELECT u.id, u.Nombre, p.id, p.Nombre FROM usuarios u CROSS JOIN product p;
+
