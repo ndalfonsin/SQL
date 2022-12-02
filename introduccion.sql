@@ -114,4 +114,59 @@ UPDATE animales SET estado = 'feliz' WHERE id = 3;
 --Eliminar registros (SOLO SE PUEDE CON ID)
 DELETE from animales WHERE id = 1;
 
-"""
+
+USE holamundo;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+	id int not null auto_increment,
+    Nombre varchar(255) not null,
+    Edad int not null,
+    Email varchar(255) not null,
+    primary key (id)
+    );
+INSERT INTO usuarios(Nombre, Edad, Email) VALUES('Jane', 29, 'janedoe@mail.com');
+INSERT INTO usuarios(Nombre, Edad, Email) VALUES('Luis', 29, 'luisdoe@mail.com');
+INSERT INTO usuarios(Nombre, Edad, Email) VALUES('Tomas', 29, 'tomasdoe@mail.com');
+INSERT INTO usuarios(Nombre, Edad, Email) VALUES('Carol', 29, 'carol@mail.com');
+
+SELECT * FROM usuarios;
+/*El primero que se encuentra en la lista*/
+SELECT * FROM usuarios limit 1;
+
+/*CONECTORES LOGICOS
+OR -----> o
+AND -----> y
+< -------> menor que
+> --------> mayor que 
+<= >= --------> menor igual, mayor igual
+!= ----------> distinto que
+LIKE ---------> comparacion insensible a mayusculas o minusculas
+NOT LIKE -------> comparacion de desigualdad insensible a mayusculas y minusculas
+% --------------> Me da lo mismo su inicio y me da lo mismo su lugar, si esa palabra esta en el registro, lo detecta
+                    
+*/
+SELECT * FROM usuarios WHERE Edad > 15;
+
+
+SELECT * FROM usuarios WHERE Edad >=29 and Nombre = 'Carol';
+
+SELECT * FROM usuarios WHERE Edad >=30 or Nombre = 'Luis';
+
+/*Busqueda de usuarios entre dos edades*/
+SELECT * FROM usuarios WHERE Edad between 28 and 30;
+
+/*BUSCA EN EL CAMPO USUARIOS EL STRING "mail"*/
+SELECT * FROM usuarios WHERE Email like '%mail%';
+
+UPDATE usuarios SET Edad = 16 WHERE id between 1 and 2;
+UPDATE usuarios SET Edad = 2 WHERE id = 4;
+
+/* MOSTRAR LOS RESULTADOS DE LA CONSULTA EN ORDEN ASCENDENTE*/
+SELECT * FROM usuarios ORDER BY Edad asc;
+
+/*DESCENDENTE*/
+SELECT * FROM usuarios ORDER BY Edad desc;
+
+/*Seleccionar el de mayor edad*/
+SELECT max(edad) as mayor FROM usuarios;
+SELECT min(edad) as menor FROM usuarios;
